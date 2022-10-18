@@ -10,7 +10,12 @@ module.exports = {
     mode: 'development',
     devtool: "source-map",
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
+        fallback: {
+            fs: 'empty',
+            net: 'empty',
+            tls: 'empty'
+        }
     },
     module: {
         rules: [
@@ -24,10 +29,5 @@ module.exports = {
         new webpack.NormalModuleReplacementPlugin(/typeorm$/, function (result) {
             result.request = result.request.replace(/typeorm/, "typeorm/browser");
         })
-    ],
-    node: {
-        fs: 'empty',
-        net: 'empty',
-        tls: 'empty'
-    }
+    ]
 };
